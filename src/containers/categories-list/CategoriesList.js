@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {HashRouter, Switch, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class CategoriesList extends Component {
   constructor(props) {
@@ -17,6 +17,8 @@ class CategoriesList extends Component {
   }
 
   render() {
+
+
     if (this.state.isLoading) {
       return <p>Loading ...</p>;
     }
