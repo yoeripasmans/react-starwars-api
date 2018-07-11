@@ -1,4 +1,4 @@
-Link to application: https://yoeripasmans.github.io/react-starwars-api/
+## Link to application: https://yoeripasmans.github.io/react-starwars-api/
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
