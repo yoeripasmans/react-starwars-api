@@ -2,6 +2,7 @@
   "name": "react-starwars-api",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://yoeripasmans.github.io/react-starwars-api/",
   "dependencies": {
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
@@ -12,6 +13,8 @@
     "styled-components": "^3.3.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
