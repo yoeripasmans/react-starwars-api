@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Loader from 'react-loader';
 import CategoriesDetailTable from '../../components/categories-detail-table/CategoriesDetailTable.js';
 
 class CategoriesDetail extends Component {
@@ -10,7 +11,7 @@ class CategoriesDetail extends Component {
       data: {
         results: []
       },
-      isLoading: false,
+      loaded: false,
       error: null
     };
   }
@@ -19,8 +20,8 @@ class CategoriesDetail extends Component {
     this.setState({isLoading: true});
     fetch('https://swapi.co/api/' + this.category)
     .then(response => response.json())
-    .then(data => this.setState({data: data, isLoading: false}))
-    .catch(error => this.setState({error, isLoading: false}));
+    .then(data => this.setState({data: data, loaded: true}))
+    .catch(error => this.setState({error, loaded: true}));
   }
 
   render() {
@@ -29,15 +30,15 @@ class CategoriesDetail extends Component {
       return <p>{this.state.message}</p>;
     }
 
-    if (this.state.isLoading) {
-      return <p>Loading</p>;
-    }
+    return (
 
-    return (<div>
-      <Link to="/">Back</Link>
-      <h1>{this.category}</h1>
-      <CategoriesDetailTable data={this.state.data}></CategoriesDetailTable>
-    </div>);
+      <div>
+        <Loader loaded={this.state.loaded} color="#fff">
+          <Link to="/">Back</Link>
+          <h1>{this.category}</h1>
+          <CategoriesDetailTable data={this.state.data}></CategoriesDetailTable>
+        </Loader>
+      </div>);
   }
 }
 

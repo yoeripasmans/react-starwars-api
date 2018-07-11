@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import Loader from 'react-loader';
 
 const Section = styled.section `
   max-width: 70rem;
@@ -18,10 +19,11 @@ const List = styled.ul `
 `;
 
 const ListItem = styled.li `
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-decoration: none;
-  text-transform: capitalize;
+  text-transform: uppercase;
   list-style-type: none;
+  font-weight: 600;
 
 `;
 
@@ -44,30 +46,28 @@ class CategoriesList extends Component {
 
     this.state = {
       data: [],
-      isLoading: false
+      loaded: false
     };
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
-    fetch('https://swapi.co/api/').then(response => response.json()).then(data => this.setState({data: Object.keys(data), isLoading: false}));
+    fetch('https://swapi.co/api/').then(response => response.json()).then(data => this.setState({data: Object.keys(data), loaded: true}));
   }
 
   render() {
 
-    if (this.state.isLoading) {
-      return <p>Loading ...</p>;
-    }
-
     return (<Section>
-      <Title>Starwars API with React</Title>
-      <List>
-        {
-          this.state.data.map(categories => <ListItem key={categories}>
-            <StyledLink to={categories}>{categories}</StyledLink>
-          </ListItem>)
-        }
-      </List>
+      <Loader loaded={this.state.loaded} color="#fff">
+        <Title>Starwars API with React</Title>
+        <List>
+          {
+            this.state.data.map(categories => <ListItem key={categories}>
+              <StyledLink to={categories}>{categories}</StyledLink>
+            </ListItem>)
+          }
+        </List>
+      </Loader>
     </Section>);
 
   }
