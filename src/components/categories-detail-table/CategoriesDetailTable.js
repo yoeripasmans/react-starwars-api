@@ -1,4 +1,22 @@
 import React, {Component} from 'react';
+import styled from 'styled-components';
+
+const Table = styled.table `
+  border-collapse: collapse;
+  width: 100%;
+`;
+
+const Td = styled.td `
+     text-align: left;
+     padding: 0.5rem;
+`;
+
+const Th = styled.th `
+     text-align: left;
+     padding: 0.5rem;
+     text-transform: capitalize;
+`;
+
 
 class CategoriesDetailTable extends Component {
 
@@ -8,19 +26,18 @@ class CategoriesDetailTable extends Component {
   }
 
   render() {
-    return (
-      <table>
+    return (<Table>
       <ItemCategoryRow data={this.props.data.results}></ItemCategoryRow>
       <tbody>
 
         {
           this.props.data.results.map(itemData => <tr>
-            <ItemRow key={itemData.name} data={itemData}></ItemRow>
+            <ItemRow key={itemData} data={itemData}></ItemRow>
           </tr>)
         }
 
       </tbody>
-    </table>);
+    </Table>);
   }
 
 }
@@ -29,12 +46,17 @@ class ItemCategoryRow extends Component {
 
   constructor(props) {
     super(props);
+    this.categories = Object.keys(this.props.data[0]).map(category => category.replace(/_/g , " "));
   }
 
   render() {
     return (<thead>
       <tr>
-        <th>{this.props.data.name}</th>
+        {
+          this.categories.map((itemData) => <Th key={itemData}>
+            {itemData}
+          </Th>)
+        }
       </tr>
     </thead>);
   }
@@ -48,15 +70,9 @@ class ItemRow extends Component {
   }
 
   render() {
-    if (this.props.data.name) {
-      return (<td>{this.props.data.name}</td>);
-    } else if (this.props.data.title) {
-      return (<td>{this.props.data.title}</td>);
-    }
-    return(
-      <td>{this.props.data.created}</td>
-    );
-
+    return (Object.values(this.props.data).map((itemData, i) => <Td key={i}>
+      {itemData}
+    </Td>));
   }
 }
 

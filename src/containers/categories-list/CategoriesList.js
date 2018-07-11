@@ -46,16 +46,21 @@ class CategoriesList extends Component {
 
     this.state = {
       data: [],
-      loaded: false
+      loaded: false,
+      error: null
     };
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
-    fetch('https://swapi.co/api/').then(response => response.json()).then(data => this.setState({data: Object.keys(data), loaded: true}));
+    fetch('https://swapi.co/api/').then(response => response.json()).then(data => this.setState({data: Object.keys(data), loaded: true})).catch(error => this.setState({error, loaded: true}));
   }
 
   render() {
+
+    if (this.state.error) {
+      return <p>{this.state.error.message}</p>;
+    }
 
     return (<Section>
       <Loader loaded={this.state.loaded} color="#fff">
