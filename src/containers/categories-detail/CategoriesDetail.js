@@ -5,7 +5,7 @@ import CategoriesDetailTable from '../../components/categories-detail-table/Cate
 class CategoriesDetail extends Component {
   constructor(props) {
     super(props);
-    this.category = this.props.location.pathname;
+    this.category = this.props.location.pathname.slice(1);
     this.state = {
       data: {
         results: []
@@ -17,7 +17,7 @@ class CategoriesDetail extends Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    fetch('https://swapi.co/api' + this.category)
+    fetch('https://swapi.co/api/' + this.category)
     .then(response => response.json())
     .then(data => this.setState({data: data, isLoading: false}))
     .catch(error => this.setState({error, isLoading: false}));
@@ -35,6 +35,7 @@ class CategoriesDetail extends Component {
 
     return (<div>
       <Link to="/">Back</Link>
+      <h1>{this.category}</h1>
       <CategoriesDetailTable data={this.state.data}></CategoriesDetailTable>
     </div>);
   }

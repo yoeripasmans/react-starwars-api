@@ -1,5 +1,42 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import styled from 'styled-components';
+
+const Section = styled.section `
+  max-width: 70rem;
+  margin: 0 auto;
+`;
+
+const Title = styled.h1 `
+  font-size: 2.5rem;
+`;
+
+const List = styled.ul `
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ListItem = styled.li `
+  font-size: 1.2rem;
+  text-decoration: none;
+  text-transform: capitalize;
+  list-style-type: none;
+
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: #fff;
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #2f2f2f;
+
+`;
 
 class CategoriesList extends Component {
   constructor(props) {
@@ -18,20 +55,20 @@ class CategoriesList extends Component {
 
   render() {
 
-
     if (this.state.isLoading) {
       return <p>Loading ...</p>;
     }
 
-    return (
-      <ul>
-      {
-        this.state.data.map(categories => <li key={categories}>
-          <Link to={categories}>{categories}</Link>
-        </li>)
-      }
-    </ul>
-    );
+    return (<Section>
+      <Title>Starwars API with React</Title>
+      <List>
+        {
+          this.state.data.map(categories => <ListItem key={categories}>
+            <StyledLink to={categories}>{categories}</StyledLink>
+          </ListItem>)
+        }
+      </List>
+    </Section>);
 
   }
 }
