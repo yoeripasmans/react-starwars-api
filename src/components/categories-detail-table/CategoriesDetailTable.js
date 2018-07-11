@@ -26,7 +26,6 @@ class CategoriesDetailTable extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.data);
     //remove unwanted data
     this.props.data.results.map(data => {
       //people
@@ -84,13 +83,17 @@ class ItemCategoryRow extends Component {
     return (<thead>
       <tr>
         {
-          this.categories.map((itemData) => <Th key={itemData}>
+          this.categories.map((itemData) => <Th key={itemData} onClick={sort.bind(this, itemData)}>
             {itemData}
           </Th>)
         }
       </tr>
     </thead>);
   }
+}
+
+function sort(category){
+  console.log('sort on', category);
 }
 
 class ItemRow extends Component {
