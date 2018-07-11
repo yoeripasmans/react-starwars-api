@@ -6,6 +6,10 @@ const Table = styled.table `
   width: 100%;
 `;
 
+const Tr = styled.tr `
+     &:nth-child(odd){background-color: #232323;
+`;
+
 const Td = styled.td `
      text-align: left;
      padding: 0.5rem;
@@ -17,12 +21,39 @@ const Th = styled.th `
      text-transform: capitalize;
 `;
 
-
 class CategoriesDetailTable extends Component {
 
   constructor(props) {
     super(props);
+
     console.log(this.props.data);
+    //remove unwanted data
+    this.props.data.results.map(data => {
+      //people
+      delete data.homeworld;
+      delete data.films;
+      delete data.species;
+      delete data.starships;
+      delete data.vehicles;
+      //residents
+      delete data.residents;
+      //films
+      delete data.characters;
+      delete data.opening_crawl;
+      delete data.planets;
+      //species
+      delete data.people;
+      //vehicles
+      delete data.pilots;
+      delete data.manufacturer;
+
+      //general
+      delete data.url;
+      delete data.edited;
+      delete data.created;
+
+      return this.props.data;
+    });
   }
 
   render() {
@@ -31,9 +62,9 @@ class CategoriesDetailTable extends Component {
       <tbody>
 
         {
-          this.props.data.results.map(itemData => <tr>
-            <ItemRow key={itemData} data={itemData}></ItemRow>
-          </tr>)
+          this.props.data.results.map((itemData, i) => <Tr key={i}>
+            <ItemRow data={itemData}></ItemRow>
+          </Tr>)
         }
 
       </tbody>
@@ -46,7 +77,7 @@ class ItemCategoryRow extends Component {
 
   constructor(props) {
     super(props);
-    this.categories = Object.keys(this.props.data[0]).map(category => category.replace(/_/g , " "));
+    this.categories = Object.keys(this.props.data[0]).map(category => category.replace(/_/g, " "));
   }
 
   render() {
@@ -63,11 +94,6 @@ class ItemCategoryRow extends Component {
 }
 
 class ItemRow extends Component {
-
-  constructor(props) {
-    super(props);
-    console.log(this.props.data);
-  }
 
   render() {
     return (Object.values(this.props.data).map((itemData, i) => <Td key={i}>

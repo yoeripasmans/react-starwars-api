@@ -6,12 +6,17 @@ import CategoriesDetailTable from '../../components/categories-detail-table/Cate
 
 const Section = styled.section `
   max-width: 70rem;
-  margin: 0 auto;
+  margin: 3rem auto;
 `;
 
 const Title = styled.h1 `
   font-size: 2.5rem;
   text-transform: capitalize;
+`;
+
+const BackButton = styled(Link)`
+    color: #fff;
+
 `;
 
 class CategoriesDetail extends Component {
@@ -45,7 +50,7 @@ class CategoriesDetail extends Component {
 
       <Section>
         <Loader loaded={this.state.loaded} color="#fff">
-          <Link to="/">Back</Link>
+          <BackButton to="/">Back to overview</BackButton>
           <Title>{this.category}</Title>
           <CategoriesDetailTable data={this.state.data}></CategoriesDetailTable>
         </Loader>
